@@ -18,6 +18,41 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Auth::guard('api')->user(); // instance of the logged user
+// Auth::guard('api')->check(); // if a user is authenticated
+// Auth::guard('api')->id(); // the id of the authenticated user
+
+// echo "<pre>wedwew";
+// print_r(Auth::guard('api')->user());
+// die;
+
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::get('articles', 'ArticleController@index');
+    Route::get('articles/{article}', 'ArticleController@show');
+    Route::post('articles', 'ArticleController@store');
+    Route::put('articles/{article}', 'ArticleController@update');
+    Route::delete('articles/{article}', 'ArticleController@delete');
+});
+
+// Register Routes  
+Route::post('register', 'Auth\RegisterController@register');
+// Login Route
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Article Routes
 // Route::get('articles', function() {
 //     return Article::all();
@@ -50,8 +85,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::put('articles/{id}', 'ArticleController@update');
 // Route::delete('articles/{id}', 'ArticleController@delete');
 
-Route::get('articles', 'ArticleController@index');
-Route::get('articles/{article}', 'ArticleController@show');
-Route::post('articles', 'ArticleController@store');
-Route::put('articles/{article}', 'ArticleController@update');
-Route::delete('articles/{article}', 'ArticleController@delete');
+// Route::get('articles', 'ArticleController@index');
+// Route::get('articles/{article}', 'ArticleController@show');
+// Route::post('articles', 'ArticleController@store');
+// Route::put('articles/{article}', 'ArticleController@update');
+// Route::delete('articles/{article}', 'ArticleController@delete');
